@@ -1,14 +1,6 @@
+import styled from "styled-components";
 import Winner from "./Winner";
-
-export interface Types {
-  item: string;
-  setWinner: (item: string | null) => void;
-  setButton: (buttons: string[]) => void;
-  initialButtons: string[];
-  setWinningLine?: (line: number[]) => void;
-  setX_or_O: (x: boolean) => void;
-  round?: string;
-}
+import { Types } from "./Winner";
 
 const Tied = ({
   item,
@@ -17,18 +9,32 @@ const Tied = ({
   initialButtons,
   setWinningLine,
   setX_or_O,
-}: // round,
-Types) => {
+  setIsTied,
+}: Types) => {
+  const handleTied = () => {
+    setIsTied && setIsTied(false);
+  };
+
   return (
-    <Winner
-      item={item}
-      setWinner={setWinner}
-      setButton={setButton}
-      initialButtons={initialButtons}
-      setWinningLine={setWinningLine}
-      setX_or_O={setX_or_O}
-    />
+    <Div>
+      <Winner
+        item={item}
+        setWinner={setWinner}
+        setButton={setButton}
+        initialButtons={initialButtons}
+        setWinningLine={setWinningLine}
+        setX_or_O={setX_or_O}
+        round="ROUND TIED"
+        setIsTied={handleTied}
+      />
+    </Div>
   );
 };
 
 export default Tied;
+
+const Div = styled.div`
+  h2 {
+    color: #a8bfc9;
+  }
+`;

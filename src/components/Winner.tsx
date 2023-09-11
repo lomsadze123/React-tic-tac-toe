@@ -3,12 +3,14 @@ import X from "../assets/icon-x.svg";
 import O from "../assets/icon-o.svg";
 
 export interface Types {
-  item: string;
+  item: string | null;
   setWinner: (item: string | null) => void;
   setButton: (buttons: string[]) => void;
   initialButtons: string[];
   setWinningLine?: (line: number[]) => void;
   setX_or_O: (x: boolean) => void;
+  round: string;
+  setIsTied?: (tied: boolean) => void;
 }
 
 const Winner = ({
@@ -18,23 +20,25 @@ const Winner = ({
   initialButtons,
   setWinningLine,
   setX_or_O,
+  setIsTied,
+  round,
 }: Types) => {
   const handleNext = () => {
     setWinner(null);
     setButton(initialButtons);
     setWinningLine && setWinningLine([]);
     item === X ? setX_or_O(true) : setX_or_O(false);
+    setIsTied && setIsTied(false);
   };
 
   return (
     <Div>
       <div className="background">
         <div>
-          {/* <img src={item === X ? X : O} alt="icons" /> */}
           {(item === X || item === O) && (
             <img src={item === X ? X : O} alt="icons" />
           )}
-          <H2 color={item === O}>TAKES THE ROUND</H2>
+          <H2 color={item === O}>{round}</H2>
         </div>
         <button>QUIT</button>
         <button onClick={handleNext}>NEXT ROUND</button>

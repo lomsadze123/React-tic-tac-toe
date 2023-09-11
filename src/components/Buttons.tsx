@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Winner from "./Winner";
 import Header from "./Header";
 import Tied from "./Tied";
+import Scores from "./Scores";
 
 const Buttons = () => {
   const [X_or_O, setX_or_O] = useState(true);
@@ -14,10 +15,22 @@ const Buttons = () => {
   const [buttons, setButton] = useState<string[]>(initialButtons);
   const [winner, setWinner] = useState<string | null>(null);
   const [winningLine, setWinningLine] = useState<number[]>([]);
+  const [isTied, setIsTied] = useState(false);
+
+  // const [countX, setCountX] = useState(0);
+  // const [countO, setCountO] = useState(0);
+  // const [countTied, setCountTied] = useState(0);
 
   useEffect(() => {
     checkWinner();
+    checkTied();
   }, [buttons]);
+
+  const checkTied = () => {
+    if (buttons.every((cell) => cell !== null) && !winner) {
+      setIsTied(true);
+    }
+  };
 
   const checkWinner = () => {
     const lines = [
@@ -40,9 +53,16 @@ const Buttons = () => {
       ) {
         setWinner(buttons[a]);
         setWinningLine(lines[i]);
+
+        // if (winner === X) {
+        //   setCountX(countX + 1);
+        // } else if (winner === O) {
+        //   setCountO(countO + 1);
+        // } else if (isTied) {
+        //   setCountTied(countTied + 1);
+        // }
+
         return;
-      } else {
-        setWinner("");
       }
     }
   };
@@ -78,6 +98,7 @@ const Buttons = () => {
         setButton={setButton}
         initialButtons={initialButtons}
         setX_or_O={setX_or_O}
+        round=""
       />
       <main>
         {buttons.map((button, index) => (
@@ -106,9 +127,10 @@ const Buttons = () => {
           initialButtons={initialButtons}
           setWinningLine={setWinningLine}
           setX_or_O={setX_or_O}
+          round="TAKES THE ROUND"
         />
       )}
-      {/* {winner === "" && (
+      {isTied && (
         <Tied
           item={winner ? winner : ""}
           setWinner={setWinner}
@@ -116,8 +138,11 @@ const Buttons = () => {
           initialButtons={initialButtons}
           setWinningLine={setWinningLine}
           setX_or_O={setX_or_O}
+          round="ROUND TIED"
+          setIsTied={setIsTied}
         />
-      )} */}
+      )}
+      <Scores score={1} />
     </Div>
   );
 };

@@ -5,7 +5,7 @@ import restart from "../assets/icon-restart.svg";
 import styled from "styled-components";
 import Restart from "./Restart";
 import { useState } from "react";
-import { Types } from "./Tied";
+import { Types } from "./Winner";
 
 interface AddTypes extends Types {
   X_or_O: boolean;
@@ -42,6 +42,7 @@ const Header = ({
           setButton={setButton}
           initialButtons={initialButtons}
           setX_or_O={setX_or_O}
+          round=""
         />
       )}
     </Div>
