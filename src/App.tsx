@@ -5,8 +5,8 @@ import Menu from "./components/Menu";
 function App() {
   return (
     <Body>
-      <Buttons />
-      {/* <Menu /> */}
+      {/* <Buttons /> */}
+      <Menu />
     </Body>
   );
 }

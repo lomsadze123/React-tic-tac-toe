@@ -8,6 +8,8 @@ import Winner from "./Winner";
 import Header from "./Header";
 import Tied from "./Tied";
 import Scores from "./Scores";
+import outlineO from "../assets/icon-o-outline.svg";
+import outlineX from "../assets/icon-x-outline.svg";
 
 const Buttons = () => {
   const [X_or_O, setX_or_O] = useState(true);
@@ -16,10 +18,7 @@ const Buttons = () => {
   const [winner, setWinner] = useState<string | null>(null);
   const [winningLine, setWinningLine] = useState<number[]>([]);
   const [isTied, setIsTied] = useState(false);
-
-  // const [countX, setCountX] = useState(0);
-  // const [countO, setCountO] = useState(0);
-  // const [countTied, setCountTied] = useState(0);
+  const [score, setScore] = useState({ x: 0, tied: 0, o: 0 });
 
   useEffect(() => {
     checkWinner();
@@ -29,6 +28,10 @@ const Buttons = () => {
   const checkTied = () => {
     if (buttons.every((cell) => cell !== null) && !winner) {
       setIsTied(true);
+      setScore((num) => ({
+        ...num,
+        tied: num.tied + 1,
+      }));
     }
   };
 
@@ -54,13 +57,17 @@ const Buttons = () => {
         setWinner(buttons[a]);
         setWinningLine(lines[i]);
 
-        // if (winner === X) {
-        //   setCountX(countX + 1);
-        // } else if (winner === O) {
-        //   setCountO(countO + 1);
-        // } else if (isTied) {
-        //   setCountTied(countTied + 1);
-        // }
+        if (buttons[a] === X) {
+          setScore((num) => ({
+            ...num,
+            x: num.x + 1,
+          }));
+        } else if (buttons[a] === O) {
+          setScore((num) => ({
+            ...num,
+            o: num.o + 1,
+          }));
+        }
 
         return;
       }
@@ -99,19 +106,21 @@ const Buttons = () => {
         initialButtons={initialButtons}
         setX_or_O={setX_or_O}
         round=""
+        setScore={setScore}
       />
       <main>
         {buttons.map((button, index) => (
           <Button
             color={
-              winner === X
+              winner === O
                 ? winningLine.includes(index)
-                  ? "#31C3BD"
+                  ? "#F2B137"
                   : "#1f3641"
                 : winningLine.includes(index)
-                ? "#F2B137"
+                ? "#31C3BD"
                 : "#1f3641"
             }
+            img={X_or_O ? outlineX : outlineO}
             key={index}
             onClick={() => handleButton(index)}
           >
@@ -142,7 +151,7 @@ const Buttons = () => {
           setIsTied={setIsTied}
         />
       )}
-      <Scores score={1} />
+      <Scores score={score} />
     </Div>
   );
 };
@@ -157,9 +166,13 @@ const Div = styled.div`
     gap: 2rem;
     flex-wrap: wrap;
   }
+
+  @media (min-width: 768px) {
+    max-width: 46rem;
+  }
 `;
 
-export const Button = styled.button<{ color: string }>`
+export const Button = styled.button<{ color: string; img: string }>`
   border: 0;
   border-radius: 1rem;
   max-width: 9.6rem;
@@ -167,4 +180,26 @@ export const Button = styled.button<{ color: string }>`
   height: 9.6rem;
   box-shadow: inset 0px -8px 0px #10212a;
   background-color: ${(props) => props.color};
+  &:hover {
+    background-image: url(${(props) => props.img});
+  }
+  .preventHover {
+    pointer-events: none;
+  }
+  background-repeat: no-repeat;
+  background-position: center;
+  img {
+    max-width: 4rem;
+    width: 100%;
+    height: auto;
+  }
+
+  @media (min-width: 768px) {
+    max-width: 14rem;
+    height: 14rem;
+    img {
+      max-width: 6.4rem;
+    }
+    cursor: pointer;
+  }
 `;

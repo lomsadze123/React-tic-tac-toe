@@ -1,11 +1,19 @@
 import styled from "styled-components";
 
-const Scores = ({ score }: { score: number }) => {
+const Scores = ({
+  score,
+}: {
+  score: {
+    x: number;
+    tied: number;
+    o: number;
+  };
+}) => {
   return (
     <MainDiv>
-      <ScoresComponent color="#31c3bd" player="X (ply)" score={14} />
-      <ScoresComponent color="#A8BFC9" player="TIES" score={14} />
-      <ScoresComponent color="#F2B137" player="O (ply)" score={14} />
+      <ScoresComponent color="#31c3bd" player="X (ply)" score={score.x} />
+      <ScoresComponent color="#A8BFC9" player="TIES" score={score.tied} />
+      <ScoresComponent color="#F2B137" player="O (ply)" score={score.o} />
     </MainDiv>
   );
 };
@@ -54,5 +62,18 @@ const Div = styled.div<{ color: string }>`
   h2 {
     font-size: 2rem;
     letter-spacing: 0.125rem;
+  }
+
+  @media (min-width: 768px) {
+    max-width: 14rem;
+
+    h3 {
+      font-size: 1.4rem;
+      letter-spacing: 0.0875rem;
+    }
+    h2 {
+      font-size: 2.4rem;
+      letter-spacing: 0.15rem;
+    }
   }
 `;

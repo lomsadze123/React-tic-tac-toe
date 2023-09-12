@@ -9,6 +9,13 @@ import { Types } from "./Winner";
 
 interface AddTypes extends Types {
   X_or_O: boolean;
+  setScore: React.Dispatch<
+    React.SetStateAction<{
+      x: number;
+      tied: number;
+      o: number;
+    }>
+  >;
 }
 
 const Header = ({
@@ -18,6 +25,7 @@ const Header = ({
   setButton,
   initialButtons,
   setX_or_O,
+  setScore,
 }: AddTypes) => {
   const [check, setCheck] = useState(false);
 
@@ -43,6 +51,7 @@ const Header = ({
           initialButtons={initialButtons}
           setX_or_O={setX_or_O}
           round=""
+          setScore={setScore}
         />
       )}
     </Div>
@@ -88,5 +97,22 @@ const Div = styled.div`
     font-size: 1.4rem;
     color: #a8bfc9;
     letter-spacing: 0.0875rem;
+  }
+
+  @media (min-width: 768px) {
+    margin-bottom: 2.9rem;
+    .div h2 {
+      font-size: 1.6rem;
+    }
+    .turn {
+      max-width: 2rem;
+    }
+    .div {
+      padding: 1.3rem 3rem 1.9rem 3rem;
+      border-radius: 1rem;
+    }
+    .restart {
+      cursor: pointer;
+    }
   }
 `;

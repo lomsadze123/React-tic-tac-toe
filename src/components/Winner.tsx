@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import X from "../assets/icon-x.svg";
 import O from "../assets/icon-o.svg";
 
@@ -49,7 +49,19 @@ const Winner = ({
 
 export default Winner;
 
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
 export const Div = styled.div`
+  opacity: 0;
+  animation: ${fadeIn} 0.5s linear 0.5s forwards;
+
   background-color: rgba(0, 0, 0, 0.5);
   &,
   .background div {
@@ -95,10 +107,38 @@ export const Div = styled.div`
     box-shadow: 0px -4px 0px 0px #cc8b13 inset;
     margin-left: 1.6rem;
   }
+
+  @media (min-width: 768px) {
+    img {
+      max-width: 6.4rem;
+    }
+    .background div {
+      gap: 2.4rem;
+    }
+    .background {
+      padding: 4.5rem 0 4.5rem;
+    }
+    button {
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #dbe8ed;
+      box-shadow: 0px -4px 0px 0px #6b8997 inset;
+    }
+    button + button:hover {
+      background-color: #ffc860;
+      box-shadow: 0px -4px 0px 0px #cc8b13 inset;
+    }
+  }
 `;
 
 const H2 = styled.h2<{ color: boolean }>`
   font-size: 2.4rem;
   letter-spacing: 0.15rem;
   color: ${(props) => (props.color ? "#F2B137" : "#31C3BD")};
+
+  @media (min-width: 768px) {
+    font-size: 4rem;
+    letter-spacing: 0.25rem;
+  }
 `;
