@@ -4,11 +4,16 @@ import blackO from "../assets/icon-o-black.svg";
 import blackX from "../assets/icon-x-black.svg";
 import grayX from "../assets/icon-x-grey.svg";
 import grayO from "../assets/icon-o-grey.svg";
-import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
-const Menu = () => {
-  const [choice, setChoice] = useState(false);
-
+const Menu = ({
+  choice,
+  setChoice,
+}: {
+  choice: boolean;
+  setChoice: (choice: boolean) => void;
+}) => {
   return (
     <Div>
       <img src={logo} alt="logo X and O" />
@@ -24,7 +29,10 @@ const Menu = () => {
         </div>
         <h3>remember: x is default</h3>
       </div>
-      <button>NEW GAME</button>
+      <Link to="/game">
+        <button>NEW GAME</button>
+      </Link>
+      <Outlet />
     </Div>
   );
 };
@@ -75,7 +83,7 @@ const Div = styled.div`
     letter-spacing: 0.0875rem;
     text-transform: uppercase;
   }
-  div + button {
+  a button {
     width: 100%;
     background-color: #f2b137;
     border: 0;
@@ -88,7 +96,7 @@ const Div = styled.div`
   }
 
   @media (min-width: 768px) {
-    div + button {
+    a button {
       font-size: 2rem;
       letter-spacing: 0.125rem;
       padding: 1.7rem 12.25rem 2.5rem 12.15rem;
@@ -100,7 +108,7 @@ const Div = styled.div`
       padding: 1.1rem 8.33rem 1.13rem 8.3rem;
       cursor: pointer;
     }
-    div + button:hover {
+    a button:hover {
       background-color: #ffc860;
       cursor: pointer;
     }

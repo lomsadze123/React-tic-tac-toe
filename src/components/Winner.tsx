@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import X from "../assets/icon-x.svg";
 import O from "../assets/icon-o.svg";
+import { Link } from "react-router-dom";
 
 export interface Types {
   item: string | null;
@@ -40,7 +41,9 @@ const Winner = ({
           )}
           <H2 color={item === O}>{round}</H2>
         </div>
-        <button>QUIT</button>
+        <Link to="/">
+          <button>QUIT</button>
+        </Link>
         <button onClick={handleNext}>NEXT ROUND</button>
       </div>
     </Div>
@@ -92,7 +95,8 @@ export const Div = styled.div`
     width: 100%;
   }
 
-  button {
+  button,
+  a button {
     border-radius: 1rem;
     box-shadow: 0px -4px 0px 0px #6b8997 inset;
     color: #1a2a33;
@@ -102,6 +106,7 @@ export const Div = styled.div`
     padding: 1.5rem 1.6rem 1.7rem 1.7rem;
     background-color: #a8bfc9;
   }
+  a + button,
   button + button {
     background-color: #f2b137;
     box-shadow: 0px -4px 0px 0px #cc8b13 inset;
@@ -118,13 +123,15 @@ export const Div = styled.div`
     .background {
       padding: 4.5rem 0 4.5rem;
     }
-    button {
+    button,
+    a button {
       cursor: pointer;
     }
     button:hover {
       background-color: #dbe8ed;
       box-shadow: 0px -4px 0px 0px #6b8997 inset;
     }
+    a + button:hover,
     button + button:hover {
       background-color: #ffc860;
       box-shadow: 0px -4px 0px 0px #cc8b13 inset;

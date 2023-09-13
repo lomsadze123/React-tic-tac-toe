@@ -11,9 +11,9 @@ import Scores from "./Scores";
 import outlineO from "../assets/icon-o-outline.svg";
 import outlineX from "../assets/icon-x-outline.svg";
 
-const Buttons = () => {
-  const [X_or_O, setX_or_O] = useState(true);
+const Buttons = ({ choice }: { choice: boolean }) => {
   const initialButtons = Array(9).fill(null);
+  const [X_or_O, setX_or_O] = useState(choice);
   const [buttons, setButton] = useState<string[]>(initialButtons);
   const [winner, setWinner] = useState<string | null>(null);
   const [winningLine, setWinningLine] = useState<number[]>([]);
@@ -123,6 +123,7 @@ const Buttons = () => {
             img={X_or_O ? outlineX : outlineO}
             key={index}
             onClick={() => handleButton(index)}
+            isPreventHover={button !== null}
           >
             {handleX_or_O(button, index)}
           </Button>
@@ -172,7 +173,11 @@ const Div = styled.div`
   }
 `;
 
-export const Button = styled.button<{ color: string; img: string }>`
+export const Button = styled.button<{
+  color: string;
+  img: string;
+  isPreventHover: boolean;
+}>`
   border: 0;
   border-radius: 1rem;
   max-width: 9.6rem;
@@ -181,10 +186,8 @@ export const Button = styled.button<{ color: string; img: string }>`
   box-shadow: inset 0px -8px 0px #10212a;
   background-color: ${(props) => props.color};
   &:hover {
-    background-image: url(${(props) => props.img});
-  }
-  .preventHover {
-    pointer-events: none;
+    background-image: ${(props) =>
+      props.isPreventHover ? "none" : `url(${props.img})`};
   }
   background-repeat: no-repeat;
   background-position: center;
