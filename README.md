@@ -32,9 +32,9 @@ This is a classic Tic-Tac-Toe game implemented using React and React Router. It 
 ## Setup
 1. Clone the Repository: Start by cloning the repository to your local machine using the following command:
 ```bash
-git clone https://github.com/lomsadze123/React-tic-tac-toe.git
+git clone https://github.com/lomsadze123/React-planets-fact-site.git
 ```
-2. Install Dependencies: Install the project dependencies using npm or yarn:
+2. Install Dependencies: Install the project dependencies using npm:
 ```bash
 npm install
 ```
@@ -53,4 +53,4 @@ npm run dev
 - TypeScript
 - useState Hook
 - useEffect Hook
-- React Router
+- Axios
